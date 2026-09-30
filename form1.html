@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Live Validation Form</title>
+
+  <style>
+    .error {
+      color: red;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Live Validation Form</h2>
+
+  <form id="myForm">
+
+    Name:<br>
+    <input type="text" id="name">
+    <span id="nameError" class="error"></span>
+    <br><br>
+
+    Email:<br>
+    <input type="text" id="email">
+    <span id="emailError" class="error"></span>
+    <br><br>
+
+    Password:<br>
+    <input type="password" id="password">
+    <span id="passError" class="error"></span>
+    <br><br>
+
+    Message:<br>
+    <textarea id="message"></textarea>
+    <span id="msgError" class="error"></span>
+    <br><br>
+
+    <input type="checkbox" id="terms">
+    I agree to terms
+    <span id="termsError" class="error"></span>
+
+    <br><br>
+
+    <button type="submit">Submit</button>
+
+  </form>
+
+  <script>
+    var name = document.getElementById("name");
+    var email = document.getElementById("email");
+    var password = document.getElementById("password");
+    var message = document.getElementById("message");
+    var terms = document.getElementById("terms");
+
+    name.oninput = function() {
+      if (name.value == "")
+        nameError.innerHTML = "Name is required";
+      else
+        nameError.innerHTML = "";
+    };
+
+    email.oninput = function() {
+      if (email.value == "")
+        emailError.innerHTML = "Email is required";
+      else if (!email.value.includes("@"))
+        emailError.innerHTML = "Enter a valid email";
+      else
+        emailError.innerHTML = "";
+    };
+
+    password.oninput = function() {
+      if (password.value == "")
+        passError.innerHTML = "Password is required";
+      else if (password.value.length < 6)
+        passError.innerHTML = "Minimum 6 characters required";
+      else
+        passError.innerHTML = "";
+    };
+
+    message.oninput = function() {
+      if (message.value == "")
+        msgError.innerHTML = "Message is required";
+      else
+        msgError.innerHTML = "";
+    };
+
+    terms.onchange = function() {
+      if (!terms.checked)
+        termsError.innerHTML = "Please accept the terms";
+      else
+        termsError.innerHTML = "";
+    };
+
+    document.getElementById("myForm").onsubmit = function(event) {
+
+      if (
+        name.value == "" ||
+        email.value == "" ||
+        !email.value.includes("@") ||
+        password.value.length < 6 ||
+        message.value == "" ||
+        !terms.checked
+      ) {
+        event.preventDefault();
+        alert("Please complete all fields correctly.");
+      } else {
+        alert("Form submitted successfully!");
+      }
+
+    };
+  </script>
+
+</body>
+</html>
+
+
